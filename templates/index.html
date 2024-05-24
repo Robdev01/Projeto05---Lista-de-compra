@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Compras</title>
+    <link rel="stylesheet" href="static\style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Lista de Compras</h1>
+        <h2>Adicionar Nova Lista de Compras</h2>
+        <form method="POST" action="/add_shopping_list">
+            <input type="text" name="name" placeholder="Nome da Lista" required>
+            <input type="text" name="category" placeholder="Categoria">
+            <input type="number" name="value" placeholder="Valor Total">
+            <button type="submit">Adicionar Lista</button>
+        </form>
+        <hr>
+        <h2>Listas de Compras</h2>
+        {% for name, shopping_list in shopping_lists.items() %}
+        <div class="shopping-list">
+            <h3>{{ name }}</h3>
+            <p>Categoria: {{ shopping_list['category'] }}</p>
+            <p>Valor Total: {{ shopping_list['value'] }}</p>
+            <form method="POST" action="/delete_shopping_list">
+                <input type="hidden" name="name" value="{{ name }}">
+                <button type="submit">Deletar Lista</button>
+            </form>
+            <h4>Itens da Lista</h4>
+            <form method="POST" action="/add_item/{{ name }}">
+                <input type="text" name="item" placeholder="Adicionar item..." required>
+                <button type="submit">Adicionar Item</button>
+            </form>
+            <ul>
+                {% for i, item in enumerate(shopping_list['items']) %}
+                <li class="{{ 'completed' if item['completed'] else '' }}">
+                    <input type="checkbox" id="item{{ i }}" name="item{{ i }}" {% if item['completed'] %} checked {% endif %}>
+                    <label for="item{{ i }}">{{ item['text'] }}</label>
+                    <a href="/delete_item/{{ name }}/{{ i }}">✖</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endfor %}
+    </div>
+    <script src="{{ url_for('static', filename='scripts.js') }}"></script>
+</body>
+</html>
