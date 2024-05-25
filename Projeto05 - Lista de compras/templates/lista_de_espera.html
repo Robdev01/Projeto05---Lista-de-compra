@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Espera</title>
+    <link rel="stylesheet" href="static\style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Lista de Compras</h1>
+        <form method="POST" action="/add_to_waiting_list">
+            <input type="text" name="item" placeholder="Adicionar item..." required>
+            <input type="number" step="0.01" name="value" placeholder="Valor do item">
+            <input type="number" step="0.01" name="quantity" placeholder="Quantidade do item">
+            <button type="submit">Adicionar à Lista</button>
+        </form>
+        <ul>
+            {% for i, item in enumerate(lista_de_espera) %}
+            <li>
+                <form method="POST" action="/toggle_item/{{ i }}" style="display: inline;">
+                    <input type="checkbox" onclick="this.form.submit()" {% if item['completed'] %} checked {% endif %}>
+                </form>
+                <label for="item{{ i }}">
+                    {{ item['text'] }} - R$ {{ '%.2f' | format(item['value']) }}
+                </label>
+                <label for="quantity{{ q }}">
+                    Quantidade: {{ item['quantity'] }}
+                </label>
+                <label>
+                    Total: R$ {{ '%.2f' | format(item['quantity'] * item['value']) }}
+                </label>
+                <form method="POST" action="/remove_from_waiting_list/{{ i }}" style="display: inline;">
+                    <button type="submit">Remover</button>
+                </form>
+                <form method="POST" action="/edit_value/{{ i }}" style="display: inline;">
+                    <input type="number" step="0.01" name="value" placeholder="Novo valor" required>
+                    <button type="submit">Atualizar Valor</button>
+                </form>
+            </li>
+            {% endfor %}
+        </ul>
+        <!-- Exibir a soma dos valores -->
+        <p>Total: R$ {{ '%.2f' | format(total_value) }}</p>
+        <button onclick="window.location.href='/'">Voltar</button>
+    </div>
+</body>
+</html>

@@ -1,0 +1,67 @@
+/* Reset de estilos padrão */
+body, html {
+    margin: 0;
+    padding: 0;
+}
+
+/* Estilo para o contêiner principal */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+/* Estilo para o cabeçalho */
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Estilo para os formulários */
+form {
+    margin-bottom: 10px;
+}
+
+/* Estilo para os botões */
+button {
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Estilo para a lista de itens */
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+/* Estilo para os itens da lista */
+li {
+    margin-bottom: 10px;
+}
+
+/* Estilo para o campo de valor */
+input[type="number"] {
+    width: 100px;
+    padding: 6px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+/* Estilo para o botão de remoção */
+button[type="submit"] {
+    background-color: #0056b3;
+}
+
+button[type="submit"]:hover {
+    background-color: #0056b3;
+}
